@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kalkulator carbon </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.js">
+    <style>
+        .warna{
+            background: rgb(244, 218, 223);
+            color: white;
+        }
+        .warna:hover{
+            background: rgb(244, 218, 223);
+            color: white;
+        }
+        </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="justify-content-center">
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-header bg-danger-subtle text-white text-center" > 
+                        <h2 class="mb-0"> kalkulator carbon🩰</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="kalkulatorform"> 
+                            <div class="mb-3"> 
+                                <label for="applience" class="form-label">Pilih Alat Listrik</label>
+                                <select name="" id="applience" class="form-select" required>
+                                    <option value=""> Pilih Alat :</option>
+                                    <option value="kulkas"> Kulkas</option>
+                                    <option value="tv"> TV</option>
+                                    <option value="laptop"> Laptop</option>
+                                    <option value="kupasangin">Kipas Angin</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="quantity" class="form-label">Jumlah Alat</label>
+                                <input type="number" class="form-control" id="quantity" min="1" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="Jam" class="form-label">Berapa lama perhari (jam)</label>
+                                <input type="number" id="jam" class="form-control" min="1" required>
+                            </div>
+                            <button type="submit" class="btn warna">Hitung</button>
+                        </form>
+                        <div id="hasil" class="mt-4">
+                            <!-- Hasil perhitungan akan tampil di sini -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("kalkulatorform").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Mendapatkan nilai dari input form
+            const applience = document.getElementById("applience").value;
+            const quantity = document.getElementById("quantity").value;
+            const jam = document.getElementById("jam").value;
+
+            // Menentukan konsumsi daya per alat (dalam Watt per jam)
+            let dayaPerJam;
+
+            switch(applience) {
+                case "kulkas":
+                    dayaPerJam = 150; // contoh daya kulkas dalam Watt
+                    break;
+                case "tv":
+                    dayaPerJam = 100; // contoh daya TV dalam Watt
+                    break;
+                case "laptop":
+                    dayaPerJam = 60; // contoh daya laptop dalam Watt
+                    break;
+                case "kupasangin":
+                    dayaPerJam = 75; // contoh daya kipas angin dalam Watt
+                    break;
+                default:
+                    dayaPerJam = 0;
+                    break;
+            }
+
+            // Menghitung total konsumsi energi dalam kilowatt-jam (kWh)
+            if (dayaPerJam > 0) {
+                const totalDaya = (dayaPerJam * quantity * jam) / 1000; // konversi ke kWh
+                const hasil = `Total konsumsi energi untuk ${quantity} ${applience}(s) selama ${jam} jam per hari adalah ${totalDaya.toFixed(2)} kWh.`;
+                document.getElementById("hasil").innerHTML = hasil;
+            } else {
+                document.getElementById("hasil").innerHTML = "Pilih alat listrik terlebih dahulu!";
+            }
+        });
+    </script>
+</body>
+</html>
